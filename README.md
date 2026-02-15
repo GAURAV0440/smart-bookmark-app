@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Smart Bookmark App
 
-## Getting Started
+This is a simple full-stack bookmark manager built using Next.js and Supabase.
 
-First, run the development server:
+The app allows users to sign in with Google, add bookmarks, delete bookmarks, and see updates in real time. Each user's bookmarks are private and cannot be seen by others.
 
-```bash
+This project was built as part of a Fullstack screening task.
+
+Live Demo
+
+Deployed URL: (Add your Vercel link here after deployment)
+
+GitHub Repository: (Add your GitHub repo link here)
+
+Features
+
+User can sign up and log in using Google OAuth only
+
+Logged-in user can add a bookmark (title and URL)
+
+Bookmarks are private to each user
+
+Bookmark list updates in real time without page refresh
+
+User can delete their own bookmarks
+
+App is built using Next.js App Router
+
+Tech Stack
+
+Frontend
+
+Next.js (App Router)
+
+TypeScript
+
+Tailwind CSS
+
+Backend
+
+Supabase Authentication (Google OAuth)
+
+Supabase Database (PostgreSQL)
+
+Supabase Realtime
+
+Deployment
+
+Vercel
+
+How It Works
+Authentication
+
+I used Supabase Google OAuth for login.
+Users cannot access the dashboard without logging in.
+If a user tries to open the login page while already logged in, they are redirected to the dashboard.
+
+Private Bookmarks
+
+Each bookmark is stored with a user_id column.
+While fetching bookmarks, I filter by the logged-in user's id.
+This ensures that users only see their own bookmarks.
+
+Real-Time Updates
+
+I enabled realtime for the bookmarks table in Supabase.
+
+Then I created a realtime channel subscription in the dashboard page.
+
+The app listens for:
+
+INSERT events (new bookmark added)
+
+DELETE events (bookmark removed)
+
+When an event happens, the UI updates immediately without refreshing the page.
+
+Folder Structure
+
+app/
+
+dashboard
+
+login
+
+components/
+
+BookmarkForm
+
+lib/
+
+supabaseClient
+
+How to Run Locally
+
+Clone the repository
+
+git clone <your-repo-link>
+
+Go to the project folder
+
+cd smart-bookmark-app
+
+Install dependencies
+
+npm install
+
+Create a .env.local file and add:
+
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
+Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Problems I Faced and How I Solved Them
 
-## Learn More
+Real-time delete was not working across tabs
+Solution: I set REPLICA IDENTITY FULL in Supabase so delete events include old row data.
 
-To learn more about Next.js, take a look at the following resources:
+Realtime was not triggering properly
+Solution: I enabled realtime for the bookmarks table in Supabase.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Multiple login behavior confusion across tabs and browsers
+Solution: I handled session checks properly using supabase.auth.getUser() and redirect logic.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Hydration mismatch while testing theme feature
+Solution: I removed theme functionality and simplified the layout.
 
-## Deploy on Vercel
+Improvements If Given More Time
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Add edit bookmark feature
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Add loading skeletons
+
+Improve UI design
+
+Add toast notifications
+
+Add pagination for large bookmark lists
