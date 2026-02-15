@@ -1,4 +1,4 @@
-Smart Bookmark App
+## Smart Bookmark App
 
 This is a simple full-stack bookmark manager built using Next.js and Supabase.
 
@@ -6,13 +6,11 @@ The app allows users to sign in with Google, add bookmarks, delete bookmarks, an
 
 This project was built as part of a Fullstack screening task.
 
-Live Demo
+###Live Demo
 
-Deployed URL: (Add your Vercel link here after deployment)
+Deployed URL: https://smart-bookmark-app-one-gray.vercel.app/login
 
-GitHub Repository: (Add your GitHub repo link here)
-
-Features
+### Features
 
 User can sign up and log in using Google OAuth only
 
@@ -26,7 +24,7 @@ User can delete their own bookmarks
 
 App is built using Next.js App Router
 
-Tech Stack
+### Tech Stack
 
 Frontend
 
@@ -48,26 +46,26 @@ Deployment
 
 Vercel
 
-How It Works
-Authentication
+### How It Works
+# Authentication
 
 I used Supabase Google OAuth for login.
 Users cannot access the dashboard without logging in.
 If a user tries to open the login page while already logged in, they are redirected to the dashboard.
 
-Private Bookmarks
+# Private Bookmarks
 
 Each bookmark is stored with a user_id column.
 While fetching bookmarks, I filter by the logged-in user's id.
 This ensures that users only see their own bookmarks.
 
-Real-Time Updates
+# Real-Time Updates
 
 I enabled realtime for the bookmarks table in Supabase.
 
 Then I created a realtime channel subscription in the dashboard page.
 
-The app listens for:
+### The app listens for:
 
 INSERT events (new bookmark added)
 
@@ -75,7 +73,7 @@ DELETE events (bookmark removed)
 
 When an event happens, the UI updates immediately without refreshing the page.
 
-Folder Structure
+### Folder Structure
 
 app/
 
@@ -91,7 +89,7 @@ lib/
 
 supabaseClient
 
-How to Run Locally
+### How to Run Locally
 
 Clone the repository
 
@@ -118,7 +116,7 @@ Open
 
 http://localhost:3000
 
-Problems I Faced and How I Solved Them
+### Problems I Faced and How I Solved Them
 
 Real-time delete was not working across tabs
 Solution: I set REPLICA IDENTITY FULL in Supabase so delete events include old row data.
@@ -132,7 +130,7 @@ Solution: I handled session checks properly using supabase.auth.getUser() and re
 Hydration mismatch while testing theme feature
 Solution: I removed theme functionality and simplified the layout.
 
-Improvements If Given More Time
+### Improvements If Given More Time
 
 Add edit bookmark feature
 
